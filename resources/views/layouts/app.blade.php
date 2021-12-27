@@ -12,7 +12,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue-toasted"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -27,8 +28,8 @@
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'DVD Shop') }}
                 </a>
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ __('Alquiler') }}
+                <a class="navbar-brand" href="{{ url('/rented-films') }}">
+                    {{ __('Peliculas Aquiladas') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
