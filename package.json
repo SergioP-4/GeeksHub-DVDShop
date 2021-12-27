@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "cross-env": "^7.0.3",
+        "jquery": "^3.6.0",
         "laravel-mix": "^6.0.39",
         "normalize-path": "^3.0.0",
         "path-normalize": "^6.0.2",
