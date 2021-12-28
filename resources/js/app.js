@@ -17,7 +17,7 @@ var app = new Vue({
     },
     methods: {
         listFilm: function () {
-            axios.post('/home/films').then( response => {
+            axios.post('/home/films-list').then( response => {
                 this.films = response.data;
             }).catch(error => {
                 console.log(error.response);
@@ -34,9 +34,7 @@ var app = new Vue({
             axios.post('/home/films-rent', {
                 film_id: film
             }).then( response => {
-                if(response.data){
-                    //notificación alquilada correctamente.
-                }
+
             }).catch(error => {
                 console.log(error.response);
             })

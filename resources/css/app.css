@@ -37,3 +37,9 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+body {
+    float:left
+}
+.container {
+    min-height: 100vh;
+}
