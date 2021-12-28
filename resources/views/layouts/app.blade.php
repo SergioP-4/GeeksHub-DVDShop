@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -27,9 +28,6 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ config('app.name', 'DVD Shop') }}
-                </a>
-                <a class="navbar-brand" href="{{ url('/rented-films') }}">
-                    {{ __('Peliculas Aquiladas') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -81,7 +79,38 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            @if (Auth::user())
+            <div class="sidebar" style="float: left">
+                <ul class="nav flex-column">
+                    <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
+                        <a class="nav-link" href="/home">
+                            <i class="fas fa-building"></i><span>Dashboard</span>
+                        </a>
+                        @can('ver-user')
+                        <a class="nav-link" href="/users">
+                            <i class="fas fa-building"></i><span>Usuarios</span>
+                        </a>
+                        @endcan
+                        @can('ver-rol')
+                        <a class="nav-link" href="/roles">
+                            <i class="fas fa-building"></i><span>Roles</span>
+                        </a>
+                        @endcan
+                        @can('ver-film')
+                        <a class="nav-link" href="/films">
+                            <i class="fas fa-building"></i><span>Peliculas</span>
+                        </a>
+                        @endcan
+                        <a class="nav-link" href="/rented-films">
+                            <i class="fas fa-building"></i><span>Tus peliculas</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            @endif
+            <div class="container">
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>
