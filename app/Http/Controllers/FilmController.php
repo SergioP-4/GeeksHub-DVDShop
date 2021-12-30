@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Film;
 
 class FilmController extends Controller
@@ -22,6 +23,9 @@ class FilmController extends Controller
     public function index(){
         $films = Film::paginate(100);
         return view('films.index',compact('films'));
+    }
+    public function indexFilmAvailable(){
+        return view('films.available');
     }
 
     public function create(){
@@ -78,6 +82,7 @@ class FilmController extends Controller
     {
         $user_id = Auth::id();
         $film_id = $request->film_id;
+        $insert = "";
         if (!is_null($film_id)) {
             $insert = DB::table('film_user')->insert(
                 [
@@ -88,21 +93,22 @@ class FilmController extends Controller
                     'updated_at' => Carbon::now()
                 ]
             );
-            return response()->json($insert,200);
         }
+        return response()->json($insert,200);
     }
 
     //Función devolver pelicula
     public function returnFilm (Request $request) : JsonResponse {
         $user_id = Auth::id();
         $film_id = $request->film_return_id;
+        $affected = "";
         if(!is_null($film_id)){
             $affected = DB::table('film_user')
                 ->where('user_id','=',$user_id)
                 ->where('film_id','=',$film_id)
                 ->update(['active_flag' => 0]);
-            return response()->json($affected,200);
         }
+        return response()->json($affected,200);
     }
 
     public function listFilmRent() : JsonResponse {
@@ -113,6 +119,7 @@ class FilmController extends Controller
                 $join->on('films.id','=','film_user.film_id')
                     ->where('film_user.active_flag','=',1);
             })->where('film_user.user_id','=',$user_id);
+
         $filmrent = $query->get()->toArray();
 
         return response()->json($filmrent,200);
