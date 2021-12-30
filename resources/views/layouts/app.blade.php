@@ -26,9 +26,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'DVD Shop') }}
-                </a>
+                   <span class="navbar-brand"> {{ config('app.name', 'DVD Shop') }} </span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -83,9 +81,11 @@
             <div class="sidebar" style="float: left">
                 <ul class="nav flex-column">
                     <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
+                        @can('ver-dashboard')
                         <a class="nav-link" href="/home">
                             <i class="fas fa-building"></i><span>Dashboard</span>
                         </a>
+                        @endcan
                         @can('ver-user')
                         <a class="nav-link" href="/users">
                             <i class="fas fa-building"></i><span>Usuarios</span>
@@ -101,9 +101,14 @@
                             <i class="fas fa-building"></i><span>Peliculas</span>
                         </a>
                         @endcan
+                            @if(Auth::user()->hasRole('Cliente'))
+                        <a class="nav-link" href="/available">
+                            <i class="fas fa-building"></i><span>Peliculas Disponibles</span>
+                        </a>
                         <a class="nav-link" href="/rented-films">
                             <i class="fas fa-building"></i><span>Tus peliculas</span>
                         </a>
+                            @endif
                     </li>
                 </ul>
             </div>
