@@ -1,3 +1,4 @@
+.gitignore
 /node_modules
 /public/hot
 /public/storage
@@ -13,3 +14,9 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+hs_err_pid16704.log
+hs_err_pid17792.log
+hs_err_pid23152.log
+hs_err_pid23852.log
+hs_err_pid24248.log
+
