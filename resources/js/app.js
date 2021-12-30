@@ -1,14 +1,11 @@
 require('./bootstrap');
-Vue.use(Toasted)
+require('./toastr');
+Vue.use(Toasted);
 var app = new Vue({
     el: '#app',
     created() {
         this.listFilm();
         this.listReturnFilm();
-    },
-    updated() {
-        this.rentFilm();
-        this.returnFilm();
     },
     data: {
         films: [],
@@ -17,7 +14,7 @@ var app = new Vue({
     },
     methods: {
         listFilm: function () {
-            axios.post('/home/films-list').then( response => {
+            axios.post('/available').then( response => {
                 this.films = response.data;
             }).catch(error => {
                 console.log(error.response);
@@ -34,7 +31,13 @@ var app = new Vue({
             axios.post('/home/films-rent', {
                 film_id: film
             }).then( response => {
-
+                if(response.data){
+                    this.listFilm();
+                    this.$toasted.show("Alquilada correctamente", {
+                        duration: 1000,
+                        position: "top-right",
+                    });
+                }
             }).catch(error => {
                 console.log(error.response);
             })
@@ -44,11 +47,12 @@ var app = new Vue({
                 film_return_id: returnFilm
             }).then(response => {
                 if(response.data){
-                    //notificación devuelta correctamente.
-                } else {
-                    //Se ha producido un error.
+                    this.listReturnFilm();
+                    this.$toasted.show("Devuelta correctamente", {
+                        duration: 1000,
+                        position: "top-right",
+                    });
                 }
-                console.log(response.data);
             }).catch(error => {
                 console.log(error.response);
             })
