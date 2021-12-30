@@ -81,11 +81,10 @@
             <div class="sidebar" style="float: left">
                 <ul class="nav flex-column">
                     <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
-                        @can('ver-dashboard')
+                        @if(Auth::user()->hasRole('Administrador'))
                         <a class="nav-link" href="/home">
                             <i class="fas fa-building"></i><span>Dashboard</span>
                         </a>
-                        @endcan
                         @can('ver-user')
                         <a class="nav-link" href="/users">
                             <i class="fas fa-building"></i><span>Usuarios</span>
@@ -101,7 +100,14 @@
                             <i class="fas fa-building"></i><span>Peliculas</span>
                         </a>
                         @endcan
-                            @if(Auth::user()->hasRole('Cliente'))
+                            <a class="nav-link" href="/sales-list">
+                                <i class="fas fa-building"></i><span>Listado Ventas</span>
+                            </a>
+                            <a class="nav-link" href="/sales-rent-list">
+                                <i class="fas fa-building"></i><span>Listado Devoluciones</span>
+                            </a>
+                        @endif
+                        @if(Auth::user()->hasRole('Cliente'))
                         <a class="nav-link" href="/available">
                             <i class="fas fa-building"></i><span>Peliculas Disponibles</span>
                         </a>

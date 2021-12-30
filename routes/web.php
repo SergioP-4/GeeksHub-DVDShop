@@ -18,7 +18,7 @@ Route::view('/','welcome');
 Route::group(['middleware' => ['role:Cliente']], function(){
     Route::get('/available', [App\Http\Controllers\FilmController::class, 'indexFilmAvailable']);
     Route::view('/available','/films/available');
-    Route::post('available','App\Http\Controllers\FilmController@listFilm');
+    Route::post('/available','App\Http\Controllers\FilmController@listFilm');
     Route::view('/rented-films', 'rentedFilms');
     Route::post('/home/films-rent','App\Http\Controllers\FilmController@rentFilm');
     Route::post('/return-films','App\Http\Controllers\FilmController@returnFilm');
@@ -28,6 +28,10 @@ Route::group(['middleware' => ['role:Cliente']], function(){
 Auth::routes();
 Route::group(['middleware' => ['role:Administrador']], function (){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::view('/sales-list','/users/salesList');
+    Route::post('/sales-list','App\Http\Controllers\UserController@salesList');
+    Route::view('/sales-rent-list','/users/salesRentList');
+    Route::post('/sales-rent-list','App\Http\Controllers\UserController@salesRentList');
 });
 
 

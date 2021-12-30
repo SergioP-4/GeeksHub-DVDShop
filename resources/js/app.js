@@ -6,11 +6,15 @@ var app = new Vue({
     created() {
         this.listFilm();
         this.listReturnFilm();
+        this.salesList();
+        this.salesRentList();
     },
     data: {
         films: [],
         film_id: '',
-        returnFilms: []
+        returnFilms: [],
+        salesListUsers: [],
+        salesRentListUser:[]
     },
     methods: {
         listFilm: function () {
@@ -26,6 +30,20 @@ var app = new Vue({
             }).catch(error => {
                 console.log(error.response);
             })
+        },
+        salesList: function (){
+            axios.post('sales-list').then(response => {
+                this.salesListUsers = response.data;
+            }).catch(error => {
+                console.log(error.response);
+            });
+        },
+        salesRentList: function (){
+            axios.post('sales-rent-list').then(response => {
+                this.salesRentListUser = response.data;
+            }).catch(error => {
+                console.log(error.response);
+            });
         },
         rentFilm: function (film) {
             axios.post('/home/films-rent', {

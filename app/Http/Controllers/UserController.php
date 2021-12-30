@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -122,5 +123,31 @@ class UserController extends Controller
     public function destroy($id) {
         User::find($id)->delete();
         return redirect()->route('users.index');
+    }
+
+    //Listado de ventas
+    public function salesList() : JsonResponse {
+        $query = DB::table('users')
+            ->select('users.name','films.name as film','film_user.created_at')
+            ->join('film_user', function ($join) {
+                $join->on('users.id', '=', 'film_user.user_id')
+                    ->where('film_user.active_flag','=',1);
+            })->join('films', function ($join){
+                $join->on('film_user.film_id','=','films.id');
+            })->get()->toArray();
+        return response()->json($query,200);
+    }
+
+    //Listado de devoluciones
+    public function salesRentList() : JsonResponse {
+        $query = DB::table('users')
+            ->select('users.name','films.name as film','film_user.created_at')
+            ->join('film_user', function ($join) {
+                $join->on('users.id', '=', 'film_user.user_id')
+                    ->where('film_user.active_flag','=',0);
+            })->join('films', function ($join){
+                $join->on('film_user.film_id','=','films.id');
+            })->get()->toArray();
+        return response()->json($query,200);
     }
 }
