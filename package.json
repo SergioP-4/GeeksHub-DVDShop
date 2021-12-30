@@ -27,6 +27,7 @@
         "laravel-mix": "^6.0.39",
         "normalize-path": "^3.0.0",
         "path-normalize": "^6.0.2",
+        "toastr": "^2.1.4",
         "vue": "^2.6.14",
         "vue-template-compiler": "^2.6.14"
     }
