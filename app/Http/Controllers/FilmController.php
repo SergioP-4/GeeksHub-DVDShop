@@ -62,7 +62,6 @@ class FilmController extends Controller
     }
     //Función que devuelve un listado de peliculas.
     public function listFilm() : JsonResponse{
-
         $filmlist = DB::table('films')
             ->select('films.name','films.id')
             ->whereNotIn('films.id', function($subQuery)
